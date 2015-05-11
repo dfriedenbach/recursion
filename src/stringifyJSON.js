@@ -10,28 +10,28 @@ var stringifyJSON = function(obj) {
       return 'null';
     } else if(Array.isArray(obj)) {
       var result = '';
-      for(var i = 0; i < obj.length; i++) {
-        var stringified = stringifyJSON(obj[i]);
+      _.each(obj, function(value) {
+        var stringified = stringifyJSON(value);
         if(stringified !== undefined) {
           if(result) {
             result = result + ',';
           }
           result = result + stringified;
         }
-      }
+      });
       result = '[' + result + ']';
       return result;
     } else {
       var result = '';
-      for(var key in obj) {
-        var stringified = stringifyJSON(obj[key]);
+      _.each(obj, function(value, key) {
+        var stringified = stringifyJSON(value);
         if(stringified !== undefined) {
           if(result) {
             result = result + ',';
           }
           result = result + '"' + key + '"' + ':' + stringified;
         }
-      }
+      });
       result = '{' + result + '}';
       return result;
     }
